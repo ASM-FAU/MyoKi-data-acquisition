@@ -1,0 +1,1 @@
+Run main.py to integrate different types of signals from the same round. Then run overall_data_integration to concatenate the integrated signals from all rounds together.

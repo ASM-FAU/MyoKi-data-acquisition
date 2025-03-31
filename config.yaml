@@ -1,0 +1,77 @@
+---
+
+host: '192.168.122.21' 
+sensors_labels: !!python/tuple ['S3'] # ,'S4','S11','S12','S15','S16'
+# Sockets in the TCU being used
+sensor_ids: !!python/tuple [3] #, 9, 10, 11, 12, 13, 14, 15, 16
+# found in the SDK documentation https://www.delsys.com/downloads/USERSGUIDE/trigno/sdk.pdf
+sensors_mode_number: 65 #65
+# Make sure the mode corresponds to the sensor being read
+read_emg: True
+read_acc: True
+read_gyro: True
+# if acc and/or gyro and orientation are selected then orientation info is captured
+read_orientation: False
+cmd_port: 50040
+emg_port: 50043
+aux_port: 50044
+
+
+aquisition_mode: 'offline'
+total_EMG_channels: 16
+total_AUX_channels: 144
+timeout: 10
+
+emg_window_size: 500
+aux_window_size: 36
+emg_strides: 27
+aux_strides: 2
+folds: 2
+
+# dictionary of actions
+actions:
+  rest: 0
+  fist: 1
+  stretch: 2
+  pinch: 3
+  tripod: 4
+
+# name of the files leave blank if we dont want to train with a particular sensor
+filename: 'WinTest'
+timestampfilename: 'Timestamp_Log'
+
+# RF classifier hyperparameters
+n_estimators: 50
+max_depth: 50
+min_samples_split: 15
+min_samples_leaf: 5
+random_state: 69
+criterion: "entropy"
+build_model: True
+
+# what do we want to use for real time classification
+use_emg: True
+use_aux: True
+
+# number of classifications to decide on change in state
+class_count: 10
+
+# SSH/Raspberry pi configurations
+R_Pi_hostname: 'raspberrypi.local'
+R_Pi_username: 'robothand'
+R_Pi_password: 'raspberry'
+
+# command we want to run on the raspberry
+R_Pi_command: 'python ~/Desktop/wireless_hand_control-main/rx_from_win.py'
+
+# place to store csv data files
+data_location: 'C:/Users/HOU/Desktop/DATASAMPLING/DATA_Merging/'
+
+# expected number of samples per frame (for offline sensor fusion)
+exp_emg_samples_per_frame: 27
+exp_aux_samples_per_frame: 2
+
+
+input_data_path: "../data/input_data"
+processing_data_path: "../data/processing_data"
+output_data_path: "../data/output_data"
